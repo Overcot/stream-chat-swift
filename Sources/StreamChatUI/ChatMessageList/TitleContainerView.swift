@@ -5,10 +5,11 @@
 import StreamChat
 import UIKit
 
-public typealias ChatMessageListTitleView = _ChatMessageListTitleView<NoExtraData>
+/// A view that is used as a wrapper for status data in navigationItem's titleView
+public typealias TitleContainerView = _TitleContainerView<NoExtraData>
 
 /// A view that is used as a wrapper for status data in navigationItem's titleView
-open class _ChatMessageListTitleView<ExtraData: ExtraDataTypes>: _View, UIConfigProvider {
+open class _TitleContainerView<ExtraData: ExtraDataTypes>: _View, UIConfigProvider {
     /// Content of the view that contains title (first line) and subtitle (second nil)
     open var content: (title: String?, subtitle: String?) = (nil, nil) {
         didSet {
@@ -23,13 +24,7 @@ open class _ChatMessageListTitleView<ExtraData: ExtraDataTypes>: _View, UIConfig
     open private(set) lazy var subtitleLabel: UILabel = UILabel()
     
     /// A view that acts as the main container for the subviews
-    open private(set) lazy var containerView: ContainerStackView =
-        ContainerStackView(
-            axis: .vertical,
-            alignment: .center,
-            spacing: 0,
-            views: []
-        )
+    open private(set) lazy var containerView: ContainerStackView = ContainerStackView()
         .withoutAutoresizingMaskConstraints
     
     override public func defaultAppearance() {
@@ -41,6 +36,14 @@ open class _ChatMessageListTitleView<ExtraData: ExtraDataTypes>: _View, UIConfig
         subtitleLabel.textAlignment = .center
         subtitleLabel.font = uiConfig.font.caption1
         subtitleLabel.textColor = uiConfig.colorPalette.subtitleText
+    }
+    
+    override open func setUp() {
+        super.setUp()
+        
+        containerView.axis = .vertical
+        containerView.alignment = .center
+        containerView.spacing = 0
     }
     
     override open func setUpLayout() {

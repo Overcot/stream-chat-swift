@@ -19,6 +19,9 @@ public struct _UIConfig<ExtraData: ExtraDataTypes> {
 
     /// A view that displays a quoted message.
     public var messageQuoteView: _ChatMessageQuoteView<ExtraData>.Type = _ChatMessageQuoteView<ExtraData>.self
+    
+    /// A view that is used as a wrapper for status data in navigationItem's titleView
+    public var titleView: _TitleContainerView<ExtraData>.Type = _TitleContainerView<ExtraData>.self
 
     /// A `UIView` subclass which serves as container for `typingIndicator` and `UILabel` describing who is currently typing
     public var typingIndicatorView: _TypingIndicatorView<ExtraData>.Type = _TypingIndicatorView<ExtraData>.self

@@ -31,10 +31,7 @@ open class _ChatVC<ExtraData: ExtraDataTypes>: _ViewController,
         .init()
     
     /// View representing `titleView` in `navigationBar`
-    public private(set) lazy var titleView = uiConfig
-        .messageList
-        .titleView
-        .init()
+    public private(set) lazy var titleView = uiConfig.titleView.init()
 
     public private(set) lazy var typingIndicatorView: _TypingIndicatorView<ExtraData> = uiConfig
         .typingIndicatorView

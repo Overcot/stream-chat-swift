@@ -7,9 +7,9 @@ import StreamChat
 @testable import StreamChatUI
 import XCTest
 
-final class ChatMessageListTitleView_Tests: XCTestCase {
+final class TitleContainerView_Tests: XCTestCase {
     func test_defaultAppearance() {
-        let view = ChatMessageListTitleView().withoutAutoresizingMaskConstraints
+        let view = TitleContainerView().withoutAutoresizingMaskConstraints
         view.addSizeContraints()
         
         view.content = (nil, nil)
@@ -30,7 +30,7 @@ final class ChatMessageListTitleView_Tests: XCTestCase {
         config.font.headlineBold = .italicSystemFont(ofSize: 20)
         config.colorPalette.subtitleText = .cyan
         
-        let view = ChatMessageListTitleView().withoutAutoresizingMaskConstraints
+        let view = TitleContainerView().withoutAutoresizingMaskConstraints
         view.uiConfig = config
         view.content = ("Red", "Blue")
         view.addSizeContraints()
@@ -39,7 +39,7 @@ final class ChatMessageListTitleView_Tests: XCTestCase {
     }
     
     func test_appearanceCustomization_usingAppearanceHook() {
-        class CustomTitleView: ChatMessageListTitleView {}
+        class CustomTitleView: TitleContainerView {}
         CustomTitleView.defaultAppearance.addRule {
             $0.titleLabel.textColor = .red
             $0.subtitleLabel.textColor = .blue
@@ -53,7 +53,7 @@ final class ChatMessageListTitleView_Tests: XCTestCase {
     }
     
     func test_appearanceCustomization_usingSubclassing() {
-        class CustomTitleView: ChatMessageListTitleView {
+        class CustomTitleView: TitleContainerView {
             lazy var customLabel = UILabel()
                 .withoutAutoresizingMaskConstraints
             
@@ -79,7 +79,7 @@ final class ChatMessageListTitleView_Tests: XCTestCase {
     }
 }
 
-extension ChatMessageListTitleView {
+extension TitleContainerView {
     func addSizeContraints() {
         NSLayoutConstraint.activate([
             widthAnchor.pin(equalToConstant: 320),
