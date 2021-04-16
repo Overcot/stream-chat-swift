@@ -23,7 +23,13 @@ open class _ChatMessageListTitleView<ExtraData: ExtraDataTypes>: _View, UIConfig
     open private(set) lazy var subtitleLabel: UILabel = UILabel()
     
     /// A view that acts as the main container for the subviews
-    open private(set) lazy var stackView: UIStackView = UIStackView()
+    open private(set) lazy var containerView: ContainerStackView =
+        ContainerStackView(
+            axis: .vertical,
+            alignment: .center,
+            spacing: 0,
+            views: []
+        )
         .withoutAutoresizingMaskConstraints
     
     override public func defaultAppearance() {
@@ -35,17 +41,15 @@ open class _ChatMessageListTitleView<ExtraData: ExtraDataTypes>: _View, UIConfig
         subtitleLabel.textAlignment = .center
         subtitleLabel.font = uiConfig.font.caption1
         subtitleLabel.textColor = uiConfig.colorPalette.subtitleText
-        
-        stackView.axis = .vertical
     }
     
     override open func setUpLayout() {
         super.setUpLayout()
         
-        stackView.addArrangedSubview(titleLabel)
-        stackView.addArrangedSubview(subtitleLabel)
-        addSubview(stackView)
-        stackView.pin(to: self)
+        containerView.addArrangedSubview(titleLabel)
+        containerView.addArrangedSubview(subtitleLabel)
+        addSubview(containerView)
+        containerView.pin(to: self)
     }
     
     override open func updateContent() {
