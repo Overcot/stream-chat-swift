@@ -130,17 +130,19 @@ open class _ChatMessageActionsVC<ExtraData: ExtraDataTypes>: _ViewController, UI
     open func handleMuteAuthorAction() {
         guard let author = message?.author else { return }
 
+        #warning("Changed mute to ban")
         messageController.client
-            .userController(userId: author.id)
-            .mute { _ in self.delegate?.didFinish(self) }
+            .memberController(userId: author.id, in: messageController.cid)
+            .ban { _ in self.delegate?.didFinish(self) }
     }
 
     open func handleUnmuteAuthorAction() {
         guard let author = message?.author else { return }
 
+        #warning("Changed mute to ban")
         messageController.client
-            .userController(userId: author.id)
-            .unmute { _ in self.delegate?.didFinish(self) }
+            .memberController(userId: author.id, in: messageController.cid)
+            .unban { _ in self.delegate?.didFinish(self) }
     }
 }
 

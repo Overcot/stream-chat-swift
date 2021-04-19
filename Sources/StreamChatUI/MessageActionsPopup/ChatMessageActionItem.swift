@@ -78,7 +78,7 @@ public extension ChatMessageActionItem {
 
     static func muteUser(action: @escaping () -> Void, uiConfig: _UIConfig<ExtraData> = .default) -> Self {
         .init(
-            title: L10n.Message.Actions.userMute,
+            title: "Ban user",
             icon: uiConfig.images.messageActionMuteUser,
             action: action
         )
@@ -86,7 +86,7 @@ public extension ChatMessageActionItem {
 
     static func unmuteUser(action: @escaping () -> Void, uiConfig: _UIConfig<ExtraData> = .default) -> Self {
         .init(
-            title: L10n.Message.Actions.userUnmute,
+            title: "Unban user",
             icon: uiConfig.images.messageActionMuteUser,
             action: action
         )
