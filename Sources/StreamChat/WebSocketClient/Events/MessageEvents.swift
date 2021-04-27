@@ -4,7 +4,7 @@
 
 import Foundation
 
-public struct MessageNewEvent: EventWithUserPayload, EventWithMessagePayload {
+public struct MessageNewEvent: UserEvent, EventWithMessagePayload {
     public let userId: UserId
     public let cid: ChannelId
     public let messageId: MessageId
@@ -25,7 +25,7 @@ public struct MessageNewEvent: EventWithUserPayload, EventWithMessagePayload {
     }
 }
 
-public struct MessageUpdatedEvent: EventWithUserPayload, EventWithMessagePayload {
+public struct MessageUpdatedEvent: MessageEvent, EventWithMessagePayload {
     public let userId: UserId
     public let cid: ChannelId
     public let messageId: MessageId
@@ -42,7 +42,7 @@ public struct MessageUpdatedEvent: EventWithUserPayload, EventWithMessagePayload
     }
 }
 
-public struct MessageDeletedEvent: EventWithUserPayload, EventWithMessagePayload {
+public struct MessageDeletedEvent: MessageEvent, EventWithMessagePayload {
     public let userId: UserId
     public let cid: ChannelId
     public let messageId: MessageId
@@ -59,7 +59,7 @@ public struct MessageDeletedEvent: EventWithUserPayload, EventWithMessagePayload
     }
 }
 
-public struct MessageReadEvent: EventWithUserPayload, EventWithChannelId {
+public struct MessageReadEvent: MessageEvent, EventWithChannelId {
     public let userId: UserId
     public let cid: ChannelId
     public let readAt: Date

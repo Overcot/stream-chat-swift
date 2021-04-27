@@ -14,29 +14,39 @@ protocol EventWithPayload: Event {
     var payload: Any { get }
 }
 
+/// A protocol for any `UserEvent` where it has a `user` payload.
+protocol UserEvent: EventWithPayload {
+    var userId: UserId { get }
+}
+
+/// A protocol for any `MessageEvent` where it has a `user` payload and `channel` payload.
+protocol MessageEvent: EventWithPayload {
+    var userId: UserId { get }
+    var cid: ChannelId { get }
+}
+
 /// A protocol for user `Event` where it has a user payload.
+@available(*, deprecated, message: "Delete this and use/create channel specific Event protocols")
 protocol EventWithUserPayload: EventWithPayload {
     var userId: UserId { get }
 }
 
 /// A protocol for a current user `Event` where it has `me` payload.
+@available(*, deprecated, message: "Delete this and use/create channel specific Event protocols")
 protocol EventWithCurrentUserPayload: EventWithPayload {
     var currentUserId: UserId { get }
 }
 
-/// A protocol for an owner `Event`. Event has 2 users where the owner of the event does something with another user, e.g. ban.
-protocol EventWithOwnerPayload: EventWithPayload {
-    var ownerId: UserId { get }
-}
-
 /// A protocol for channel `Event` where it has `cid` at least.
 /// The combination of `EventWithChannelId` and `EventWithPayload` events required a `channel` object inside payload.
-protocol EventWithChannelId: Event {
+@available(*, deprecated, message: "Delete this and use/create channel specific Event protocols")
+protocol EventWithChannelId: EventWithPayload {
     var cid: ChannelId { get }
 }
 
 /// A protocol for message `Event` where it has a message payload.
-protocol EventWithMessagePayload: EventWithUserPayload, EventWithChannelId {
+@available(*, deprecated, message: "Delete this and use/create channel specific Event protocols")
+protocol EventWithMessagePayload: EventWithChannelId {
     var messageId: MessageId { get }
 }
 
