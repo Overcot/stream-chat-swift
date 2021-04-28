@@ -17,15 +17,13 @@ public struct UserPresenceChangedEvent<ExtraData: ExtraDataTypes>: UserEvent {
     }
 }
 
-public struct UserUpdatedEvent<ExtraData: ExtraDataTypes>: UserChannelSpecificEvent {
-    public let cid: ChannelId
+public struct UserUpdatedEvent<ExtraData: ExtraDataTypes>: UserEvent {
     public let userId: UserId
     public let createdAt: Date?
     
     let payload: Any
     
     init(from response: EventPayload<ExtraData>) throws {
-        cid = try response.value(at: \.cid)
         userId = try response.value(at: \.user?.id)
         createdAt = response.createdAt
         payload = response
