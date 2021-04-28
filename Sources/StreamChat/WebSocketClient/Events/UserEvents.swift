@@ -17,7 +17,7 @@ public struct UserPresenceChangedEvent<ExtraData: ExtraDataTypes>: UserEvent {
     }
 }
 
-public struct UserUpdatedEvent<ExtraData: ExtraDataTypes>: UserEvent, EventWithChannelId {
+public struct UserUpdatedEvent<ExtraData: ExtraDataTypes>: UserChannelSpecificEvent {
     public let cid: ChannelId
     public let userId: UserId
     public let createdAt: Date?
@@ -34,7 +34,7 @@ public struct UserUpdatedEvent<ExtraData: ExtraDataTypes>: UserEvent, EventWithC
 
 // MARK: - User Watching
 
-public struct UserWatchingEvent: UserEvent, EventWithChannelId {
+public struct UserWatchingEvent: UserChannelSpecificEvent {
     public let cid: ChannelId
     public let userId: UserId
     public let createdAt: Date
@@ -67,7 +67,7 @@ public struct UserGloballyBannedEvent: UserEvent {
     }
 }
 
-public struct UserBannedEvent: UserEvent, EventWithChannelId {
+public struct UserBannedEvent: UserChannelSpecificEvent {
     public let cid: ChannelId
     public let userId: UserId
     public let ownerId: UserId
@@ -100,7 +100,7 @@ public struct UserGloballyUnbannedEvent: UserEvent {
     }
 }
 
-public struct UserUnbannedEvent: UserEvent, EventWithChannelId {
+public struct UserUnbannedEvent: UserChannelSpecificEvent {
     public let cid: ChannelId
     public let userId: UserId
     public let createdAt: Date?

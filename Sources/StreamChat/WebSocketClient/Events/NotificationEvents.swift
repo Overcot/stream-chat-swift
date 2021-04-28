@@ -22,7 +22,7 @@ public struct NotificationMessageNewEvent: EventWithMessagePayload, EventWithCha
     }
 }
 
-public struct NotificationMarkAllReadEvent: UserNotificationEvent {
+public struct NotificationMarkAllReadEvent: NotificationMarkReadAllEventProtocol {
     public let userId: UserId
     public let readAt: Date
     let payload: Any
@@ -34,7 +34,7 @@ public struct NotificationMarkAllReadEvent: UserNotificationEvent {
     }
 }
 
-public struct NotificationMarkReadEvent: UserEvent, EventWithChannelId {
+public struct NotificationMarkReadEvent: NotificationMarkReadEventProtocol {
     public let userId: UserId
     public let cid: ChannelId
     public let readAt: Date

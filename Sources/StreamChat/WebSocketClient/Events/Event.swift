@@ -19,6 +19,11 @@ protocol UserEvent: EventWithPayload {
     var userId: UserId { get }
 }
 
+/// A protocol for any `UserEvent` where it has a `user` payload and is associated with Channel.
+protocol UserChannelSpecificEvent: UserEvent {
+    var cid: ChannelId { get }
+}
+
 protocol ChannelEvent: EventWithPayload {
     var cid: ChannelId { get }
 }
@@ -61,6 +66,14 @@ protocol ChannelNotificationEvent: EventWithPayload {
 // TODO: Better naming?
 protocol InviteRelatedNotificationEvent: EventWithPayload {
     var cid: ChannelId { get }
+    var userId: UserId { get }
+}
+
+protocol NotificationMarkReadEventProtocol: NotificationMarkReadAllEventProtocol {
+    var cid: ChannelId { get }
+}
+
+protocol NotificationMarkReadAllEventProtocol: EventWithPayload {
     var userId: UserId { get }
 }
 
