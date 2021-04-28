@@ -24,18 +24,25 @@ protocol UserChannelSpecificEvent: UserEvent {
     var cid: ChannelId { get }
 }
 
+/// A protocol for any `ChannelEvent` where it has a  `channel` payload.
 protocol ChannelEvent: EventWithPayload {
     var cid: ChannelId { get }
 }
 
-/// A protocol for any `MessageEvent` where it has a `user` payload and `channel` payload.
+/// A protocol for any `MemberEvent` where it has a `member`, and `channel` payload.
+public protocol MemberEvent: Event {
+    var memberUserId: UserId { get }
+    var cid: ChannelId { get }
+}
+
+/// A protocol for any `MessageEvent` where it has a `user`, `channel` and `message` payloads.
 protocol MessageEvent: EventWithPayload {
     var userId: UserId { get }
     var cid: ChannelId { get }
     var messageId: MessageId { get }
 }
 
-/// A protocol for any  `ReactionEvent` where it has reaction with message payload, cid and userId.
+/// A protocol for any  `ReactionEvent` where it has reaction with `message`, `channel`, `user` and `reaction` payload.
 protocol ReactionEvent: EventWithPayload {
     var userId: UserId { get }
     var cid: ChannelId { get }
@@ -43,7 +50,7 @@ protocol ReactionEvent: EventWithPayload {
     var reactionScore: Int { get }
 }
 
-// TODO: Probably be a better namer :D
+/// A protocol for `TypingEvent` which contains `user`, `channel` payloads. Also differs whether it's start or stop by `isTyping` property.
 protocol UserTypingEvent: EventWithPayload {
     var userId: UserId { get }
     var cid: ChannelId { get }
@@ -54,29 +61,37 @@ protocol UserNotificationEvent: EventWithPayload {
     var userId: UserId { get }
 }
 
+/// A protocol for `NotificationMutesUpdatedEvent` which contains `me` AKA `currentUser` payload.
 protocol CurrentUserNotificationEvent: EventWithPayload {
     var currentUserId: UserId { get }
 }
 
-// TODO: Does it make sense to have separate `ChannelNotificationEvent` x `ChannelEvent`??
-// We can change it easily...
+// TODO: Does it make sense to have separate `ChannelNotificationEvent` x
+// `ChannelEvent` and `MessageNotificationEvent` x `MessageEvent` ??
+
+/// A protocol for Channel-related `NotificationEvents` which contain `channel` payload
 protocol ChannelNotificationEvent: EventWithPayload {
     var cid: ChannelId { get }
 }
 
-// TODO: Better naming?
+/// A protocol for recognizing invitation related events (invitation accepted, rejected, added, removed)
+/// Contains `user` and `channel` payload
 protocol InviteRelatedNotificationEvent: EventWithPayload {
+    var userId: UserId { get }
     var cid: ChannelId { get }
+}
+
+/// A protocol for `NotificationMarkAllReadEvent`, contains only `user` payload.
+protocol NotificationMarkReadAllEventProtocol: EventWithPayload {
     var userId: UserId { get }
 }
 
+/// A protocol for `NotificationMarkReadEvent`, contains `user`and `channel` payload.
 protocol NotificationMarkReadEventProtocol: NotificationMarkReadAllEventProtocol {
     var cid: ChannelId { get }
 }
 
-protocol NotificationMarkReadAllEventProtocol: EventWithPayload {
-    var userId: UserId { get }
-}
+protocol NotificationMessageEvent: MessageEvent {}
 
 // -------------------------------------------------------
 

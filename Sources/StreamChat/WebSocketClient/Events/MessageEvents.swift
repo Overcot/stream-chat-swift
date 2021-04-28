@@ -59,8 +59,11 @@ public struct MessageDeletedEvent: MessageEvent {
     }
 }
 
-// TODO: MessageReadEvent doesn't have message Id????
-public struct MessageReadEvent: EventWithChannelId {
+/// `ChannelReadEvent`, this event tells that User has mark read all messages in channel.
+public typealias ChannelReadEvent = MessageReadEvent
+
+/// `ChannelReadEvent`, this event tells that User has mark read all messages in channel.
+public struct MessageReadEvent: ChannelEvent {
     public let userId: UserId
     public let cid: ChannelId
     public let readAt: Date

@@ -4,7 +4,7 @@
 
 import Foundation
 
-public struct NotificationMessageNewEvent: EventWithMessagePayload, EventWithChannelId {
+public struct NotificationMessageNewEvent: NotificationMessageEvent {
     public let userId: UserId
     public let cid: ChannelId
     public let messageId: MessageId
@@ -71,7 +71,6 @@ public struct NotificationAddedToChannelEvent: ChannelNotificationEvent {
 }
 
 public struct NotificationRemovedFromChannelEvent: InviteRelatedNotificationEvent {
-    // TODO: Figure out if it's needed, according to events table it is.
     public let userId: UserId
     public let cid: ChannelId
 
