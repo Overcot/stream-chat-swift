@@ -19,6 +19,10 @@ protocol UserEvent: EventWithPayload {
     var userId: UserId { get }
 }
 
+protocol ChannelEvent: EventWithPayload {
+    var cid: ChannelId { get }
+}
+
 /// A protocol for any `MessageEvent` where it has a `user` payload and `channel` payload.
 protocol MessageEvent: EventWithPayload {
     var userId: UserId { get }
@@ -33,11 +37,34 @@ protocol ReactionEvent: EventWithPayload {
     var reactionScore: Int { get }
 }
 
-/// A protocol for user `Event` where it has a user payload.
-@available(*, deprecated, message: "Delete this and use/create channel specific Event protocols")
-protocol EventWithUserPayload: EventWithPayload {
+// TODO: Probably be a better namer :D
+protocol UserTypingEvent: EventWithPayload {
+    var userId: UserId { get }
+    var cid: ChannelId { get }
+    var isTyping: Bool { get }
+}
+
+protocol UserNotificationEvent: EventWithPayload {
     var userId: UserId { get }
 }
+
+protocol CurrentUserNotificationEvent: EventWithPayload {
+    var currentUserId: UserId { get }
+}
+
+// TODO: Does it make sense to have separate `ChannelNotificationEvent` x `ChannelEvent`??
+// We can change it easily...
+protocol ChannelNotificationEvent: EventWithPayload {
+    var cid: ChannelId { get }
+}
+
+// TODO: Better naming?
+protocol InviteRelatedNotificationEvent: EventWithPayload {
+    var cid: ChannelId { get }
+    var userId: UserId { get }
+}
+
+// -------------------------------------------------------
 
 /// A protocol for a current user `Event` where it has `me` payload.
 @available(*, deprecated, message: "Delete this and use/create channel specific Event protocols")

@@ -4,7 +4,7 @@
 
 import Foundation
 
-public struct ChannelUpdatedEvent: EventWithChannelId, EventWithPayload {
+public struct ChannelUpdatedEvent: ChannelEvent {
     public let cid: ChannelId
     public let userId: UserId?
     public let messageId: MessageId?
@@ -36,7 +36,7 @@ public struct ChannelUpdatedEvent: EventWithChannelId, EventWithPayload {
     }
 }
 
-public struct ChannelDeletedEvent: EventWithChannelId, EventWithPayload {
+public struct ChannelDeletedEvent: ChannelEvent {
     public let cid: ChannelId
     public let deletedAt: Date
     
@@ -49,7 +49,8 @@ public struct ChannelDeletedEvent: EventWithChannelId, EventWithPayload {
     }
 }
 
-public struct ChannelTruncatedEvent: EventWithUserPayload, EventWithChannelId {
+// TODO: Figure out what to do with those Events which need both Channel and User...
+public struct ChannelTruncatedEvent: UserEvent, ChannelEvent {
     public let userId: UserId
     public let cid: ChannelId
     let payload: Any
@@ -61,7 +62,7 @@ public struct ChannelTruncatedEvent: EventWithUserPayload, EventWithChannelId {
     }
 }
 
-public struct ChannelVisibleEvent: EventWithChannelId, EventWithPayload {
+public struct ChannelVisibleEvent: ChannelEvent {
     public let cid: ChannelId
     let payload: Any
 
@@ -71,7 +72,7 @@ public struct ChannelVisibleEvent: EventWithChannelId, EventWithPayload {
     }
 }
 
-public struct ChannelHiddenEvent: EventWithChannelId, EventWithPayload {
+public struct ChannelHiddenEvent: ChannelEvent {
     public let cid: ChannelId
     public let hiddenAt: Date
     public let isHistoryCleared: Bool

@@ -4,7 +4,7 @@
 
 import Foundation
 
-public struct TypingEvent: EventWithUserPayload, EventWithChannelId {
+public struct TypingEvent: UserTypingEvent {
     public let isTyping: Bool
     public let cid: ChannelId
     public let userId: UserId

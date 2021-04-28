@@ -22,7 +22,7 @@ public struct NotificationMessageNewEvent: EventWithMessagePayload, EventWithCha
     }
 }
 
-public struct NotificationMarkAllReadEvent: UserEvent {
+public struct NotificationMarkAllReadEvent: UserNotificationEvent {
     public let userId: UserId
     public let readAt: Date
     let payload: Any
@@ -50,7 +50,7 @@ public struct NotificationMarkReadEvent: UserEvent, EventWithChannelId {
     }
 }
 
-public struct NotificationMutesUpdatedEvent<ExtraData: ExtraDataTypes>: EventWithCurrentUserPayload {
+public struct NotificationMutesUpdatedEvent<ExtraData: ExtraDataTypes>: CurrentUserNotificationEvent {
     public let currentUserId: UserId
     let payload: Any
     
@@ -60,7 +60,7 @@ public struct NotificationMutesUpdatedEvent<ExtraData: ExtraDataTypes>: EventWit
     }
 }
 
-public struct NotificationAddedToChannelEvent: EventWithChannelId, EventWithPayload {
+public struct NotificationAddedToChannelEvent: ChannelNotificationEvent {
     public let cid: ChannelId
     let payload: Any
     
@@ -70,18 +70,21 @@ public struct NotificationAddedToChannelEvent: EventWithChannelId, EventWithPayl
     }
 }
 
-public struct NotificationRemovedFromChannelEvent: EventWithChannelId {
+public struct NotificationRemovedFromChannelEvent: InviteRelatedNotificationEvent {
+    // TODO: Figure out if it's needed, according to events table it is.
+    public let userId: UserId
     public let cid: ChannelId
 
     let payload: Any
     
     init<ExtraData: ExtraDataTypes>(from response: EventPayload<ExtraData>) throws {
         cid = try response.value(at: \.cid)
+        userId = try response.value(at: \.user?.id)
         payload = response
     }
 }
 
-public struct NotificationInvitedEvent<ExtraData: ExtraDataTypes>: EventWithUserPayload, EventWithChannelId {
+public struct NotificationInvitedEvent<ExtraData: ExtraDataTypes>: InviteRelatedNotificationEvent {
     public let cid: ChannelId
     public let userId: UserId
     public let memberRole: MemberRole
@@ -99,7 +102,7 @@ public struct NotificationInvitedEvent<ExtraData: ExtraDataTypes>: EventWithUser
     }
 }
 
-public struct NotificationInviteAcceptedEvent<ExtraData: ExtraDataTypes>: EventWithUserPayload, EventWithChannelId {
+public struct NotificationInviteAcceptedEvent<ExtraData: ExtraDataTypes>: InviteRelatedNotificationEvent {
     public let cid: ChannelId
     public let userId: UserId
     public let memberRole: MemberRole
@@ -119,7 +122,7 @@ public struct NotificationInviteAcceptedEvent<ExtraData: ExtraDataTypes>: EventW
     }
 }
 
-public struct NotificationInviteRejectedEvent<ExtraData: ExtraDataTypes>: EventWithUserPayload, EventWithChannelId {
+public struct NotificationInviteRejectedEvent<ExtraData: ExtraDataTypes>: InviteRelatedNotificationEvent {
     public let cid: ChannelId
     public let userId: UserId
     public let memberRole: MemberRole
@@ -139,7 +142,7 @@ public struct NotificationInviteRejectedEvent<ExtraData: ExtraDataTypes>: EventW
     }
 }
 
-public struct NotificationChannelMutesUpdatedEvent: EventWithUserPayload {
+public struct NotificationChannelMutesUpdatedEvent: UserNotificationEvent {
     public let userId: UserId
     let payload: Any
     
