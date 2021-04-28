@@ -25,6 +25,14 @@ protocol MessageEvent: EventWithPayload {
     var cid: ChannelId { get }
 }
 
+/// A protocol for any  `ReactionEvent` where it has reaction with message payload, cid and userId.
+protocol ReactionEvent: EventWithPayload {
+    var userId: UserId { get }
+    var cid: ChannelId { get }
+    var reactionType: MessageReactionType { get }
+    var reactionScore: Int { get }
+}
+
 /// A protocol for user `Event` where it has a user payload.
 @available(*, deprecated, message: "Delete this and use/create channel specific Event protocols")
 protocol EventWithUserPayload: EventWithPayload {
@@ -53,10 +61,4 @@ protocol EventWithMessagePayload: EventWithChannelId {
 /// A protocol for member `Event` where it has a member object and user object.
 protocol EventWithMemberPayload: EventWithPayload {
     var memberUserId: UserId { get }
-}
-
-/// A protocol for reaction `Event` where it has reacction with message payload.
-protocol EventWithReactionPayload: EventWithMessagePayload {
-    var reactionType: MessageReactionType { get }
-    var reactionScore: Int { get }
 }
