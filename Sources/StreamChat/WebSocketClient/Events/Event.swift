@@ -32,6 +32,7 @@ protocol ChannelEvent: EventWithPayload {
 protocol MessageEvent: EventWithPayload {
     var userId: UserId { get }
     var cid: ChannelId { get }
+    var messageId: MessageId { get }
 }
 
 /// A protocol for any  `ReactionEvent` where it has reaction with message payload, cid and userId.
